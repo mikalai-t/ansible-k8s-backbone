@@ -34,5 +34,4 @@
   roles:
     - role: ansible-role-k8s-prepare-env
     - role: ansible-role-openssh
-#
-#    - role: docker
+    - role: ansible-role-docker
