@@ -1,3 +1,6 @@
 [submodule "roles/ansible-role-k8s-prepare-env"]
 	path = roles/ansible-role-k8s-prepare-env
 	url = https://github.com/mikalai-t/ansible-role-k8s-prepare-env.git
+[submodule "roles/ansible-role-openssh"]
+	path = roles/ansible-role-openssh
+	url = https://github.com/mikalai-t/ansible-role-openssh.git

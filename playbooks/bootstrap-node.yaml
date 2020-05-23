@@ -32,14 +32,12 @@
   #     - extra vars (always win precedence)
 
   roles:
-    - ansible-role-k8s-prepare-env
-#    - role: preconfig
+    - role: ansible-role-k8s-prepare-env
+    - role: openssh
 #
 #    - role: swap
 #
-#    - role: prepare-sys
-#
-#    - role: openssh
+
 #
 #    - role: docker
 #
