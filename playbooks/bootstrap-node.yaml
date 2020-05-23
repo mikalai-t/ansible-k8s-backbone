@@ -33,14 +33,6 @@
 
   roles:
     - role: ansible-role-k8s-prepare-env
-    - role: openssh
-#
-#    - role: swap
-#
-
+    - role: ansible-role-openssh
 #
 #    - role: docker
-#
-#    - role: git
-#
-#    - role: gitlab-runner
