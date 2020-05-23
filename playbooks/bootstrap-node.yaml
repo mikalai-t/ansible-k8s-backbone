@@ -32,16 +32,17 @@
   #     - extra vars (always win precedence)
 
   roles:
-    - role: preconfig
-
-    - role: swap
-
-    - role: prepare-sys
-
-    - role: openssh
-
-    - role: docker
-
-    - role: git
-
-    - role: gitlab-runner
+    - ansible-role-k8s-prepare-env
+#    - role: preconfig
+#
+#    - role: swap
+#
+#    - role: prepare-sys
+#
+#    - role: openssh
+#
+#    - role: docker
+#
+#    - role: git
+#
+#    - role: gitlab-runner
