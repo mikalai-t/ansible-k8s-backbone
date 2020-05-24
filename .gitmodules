@@ -7,3 +7,6 @@
 [submodule "roles/ansible-role-docker"]
 	path = roles/ansible-role-docker
 	url = https://github.com/mikalai-t/ansible-role-docker.git
+[submodule "roles/ansible-role-etcd"]
+	path = roles/ansible-role-etcd
+	url = https://github.com/mikalai-t/ansible-role-etcd.git

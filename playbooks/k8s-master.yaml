@@ -32,22 +32,51 @@
   #     - extra vars (always win precedence)
   vars:
     k8s_node_type: ""
+    k8s_node_name: ""
+    k8s_node_private_ip: ""
+    master_node_names: ""
+    master_node_ips: ""
+    ca_crt_b64: ""
+    ca_key_b64: ""
+    kubernetes_crt_b64: ""
+    kubernetes_key_b64: ""
+    service_account_crt_b64: ""
+    service_account_key_b64: ""
+    etcd_version: ""
 
   pre_tasks:
     - name: "{{ ansible_play_name }} - check required inputs"
       fail:
-        msg: "[ERROR] - 'k8s_node_type' variable is not set"
+        msg: "[ERROR] - '{{ item }}' variable is not set"
       when:
-        - k8s_node_type|length == 0
+        - vars[item]|length == 0
+      loop:
+        - k8s_node_type
+        - k8s_node_name
+        - k8s_node_private_ip
+        - master_node_names
+        - master_node_ips
+        - ca_crt_b64
+        - ca_key_b64
+        - kubernetes_crt_b64
+        - kubernetes_key_b64
+        - service_account_crt_b64
+        - service_account_key_b64
+        - etcd_version
 
   tasks:
-    - include_role:
-        name: ansible-role-k8s-prepare-env
-      vars:
-        k8s_node_type: "{{ node_type }}"
-
-    - include_role:
-        name: ansible-role-openssh
-
-    - include_role:
-        name: ansible-role-docker
+    block:
+      - include_role:
+          name: ansible-role-etcd
+        vars:
+          etcd_version: "{{ etcd_version }}"
+          etcd_node_name: "{{ k8s_node_name }}"
+          etcd_node_private_ip: "{{ k8s_node_private_ip }}"
+          etcd_initial_cluster_member_names: "{{ master_node_names }}"
+          etcd_initial_cluster_member_ips: "{{ master_node_ips }}"
+          etcd_ca_cert: "{{ ca_crt_b64|b64decode }}"
+          etcd_tls_cert: "{{ kubernetes_crt_b64|b64decode }}"
+          etcd_tls_key: "{{ kubernetes_key_b64|b64decode }}"
+    # block type
+    when:
+      - k8s_node_type|lower == 'master'
