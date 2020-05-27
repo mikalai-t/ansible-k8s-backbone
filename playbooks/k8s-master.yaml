@@ -38,8 +38,8 @@
     master_node_ips: ""
     ca_crt_b64: ""
     ca_key_b64: ""
-    kubernetes_crt_b64: ""
-    kubernetes_key_b64: ""
+    api_server_crt_b64: ""
+    api_server_key_b64: ""
     service_account_crt_b64: ""
     service_account_key_b64: ""
     etcd_version: ""
@@ -58,25 +58,25 @@
         - master_node_ips
         - ca_crt_b64
         - ca_key_b64
-        - kubernetes_crt_b64
-        - kubernetes_key_b64
+        - api_server_crt_b64
+        - api_server_key_b64
         - service_account_crt_b64
         - service_account_key_b64
         - etcd_version
 
   tasks:
-    block:
-      - include_role:
-          name: ansible-role-etcd
-        vars:
-          etcd_version: "{{ etcd_version }}"
-          etcd_node_name: "{{ k8s_node_name }}"
-          etcd_node_private_ip: "{{ k8s_node_private_ip }}"
-          etcd_initial_cluster_member_names: "{{ master_node_names }}"
-          etcd_initial_cluster_member_ips: "{{ master_node_ips }}"
-          etcd_ca_cert: "{{ ca_crt_b64|b64decode }}"
-          etcd_tls_cert: "{{ kubernetes_crt_b64|b64decode }}"
-          etcd_tls_key: "{{ kubernetes_key_b64|b64decode }}"
-    # block type
-    when:
-      - k8s_node_type|lower == 'master'
+    - block:
+        - include_role:
+            name: ansible-role-etcd
+          vars:
+            etcd_version: "{{ etcd_version }}"
+            etcd_node_name: "{{ k8s_node_name }}"
+            etcd_node_private_ip: "{{ k8s_node_private_ip }}"
+            etcd_initial_cluster_member_names: "{{ master_node_names }}"
+            etcd_initial_cluster_member_ips: "{{ master_node_ips }}"
+            etcd_ca_cert: "{{ ca_crt_b64|b64decode }}"
+            etcd_tls_cert: "{{ api_server_crt_b64|b64decode }}"
+            etcd_tls_key: "{{ api_server_key_b64|b64decode }}"
+      # block type
+      when:
+        - k8s_node_type|lower == 'master'
