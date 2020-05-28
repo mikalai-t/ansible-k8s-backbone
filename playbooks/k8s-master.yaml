@@ -31,6 +31,8 @@
   #     - include params
   #     - extra vars (always win precedence)
   vars:
+    k8s_cluster_name: ""
+    k8s_cluster_version: ""
     node_type: ""
     node_name: ""
     node_private_ip: ""
@@ -42,6 +44,12 @@
     api_server_key_b64: ""
     service_account_crt_b64: ""
     service_account_key_b64: ""
+    admin_user_crt_b64: ""
+    admin_user_key_b64: ""
+    kube_controller_manager_crt_b64: ""
+    kube_controller_manager_key_b64: ""
+    kube_scheduler_crt_b64: ""
+    kube_scheduler_key_b64: ""
     etcd_version: ""
 
   pre_tasks:
@@ -51,6 +59,8 @@
       when:
         - vars[item]|length == 0
       loop:
+        - k8s_cluster_name
+        - k8s_cluster_version
         - node_type
         - node_name
         - node_private_ip
@@ -62,6 +72,12 @@
         - api_server_key_b64
         - service_account_crt_b64
         - service_account_key_b64
+        - admin_user_crt_b64
+        - admin_user_key_b64
+        - kube_controller_manager_crt_b64
+        - kube_controller_manager_key_b64
+        - kube_scheduler_crt_b64
+        - kube_scheduler_key_b64
         - etcd_version
 
   tasks:
@@ -81,7 +97,23 @@
         - include_role:
             name: ansible-role-k8s-control-plane
           vars:
+            control_plane_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
+            control_plane_kubernetes_version: "{{ k8s_cluster_version }}"
             control_plane_node_name: "{{ node_name }}"
+            control_plane_node_private_ip: "{{ node_private_ip }}"
+            control_plane_ca_cert: "{{ ca_crt_b64|b64decode }}"
+            control_plane_ca_key: "{{ ca_key_b64|b64decode }}"
+            control_plane_api_server_cert: "{{ api_server_crt_b64|b64decode }}"
+            control_plane_api_server_key: "{{ api_server_key_b64|b64decode }}"
+            control_plane_service_account_cert: "{{ service_account_crt_b64|b64decode }}"
+            control_plane_service_account_key: "{{ service_account_key_b64|b64decode }}"
+            control_plane_admin_user_cert: "{{ admin_user_crt_b64|b64decode }}"
+            control_plane_admin_user_key: "{{ admin_user_key_b64|b64decode }}"
+            control_plane_kube_controller_manager_cert: "{{ kube_controller_manager_crt_b64|b64decode }}"
+            control_plane_kube_controller_manager_key: "{{ kube_controller_manager_key_b64|b64decode }}"
+            control_plane_kube_scheduler_cert: "{{ kube_scheduler_crt_b64|b64decode }}"
+            control_plane_kube_scheduler_key: "{{ kube_scheduler_key_b64|b64decode }}"
+
       # block type
       when:
         - node_type|lower == 'master'
