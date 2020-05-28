@@ -31,9 +31,9 @@
   #     - include params
   #     - extra vars (always win precedence)
   vars:
-    k8s_node_type: ""
-    k8s_node_name: ""
-    k8s_node_private_ip: ""
+    node_type: ""
+    node_name: ""
+    node_private_ip: ""
     master_node_names: ""
     master_node_ips: ""
     ca_crt_b64: ""
@@ -51,9 +51,9 @@
       when:
         - vars[item]|length == 0
       loop:
-        - k8s_node_type
-        - k8s_node_name
-        - k8s_node_private_ip
+        - node_type
+        - node_name
+        - node_private_ip
         - master_node_names
         - master_node_ips
         - ca_crt_b64
@@ -70,13 +70,18 @@
             name: ansible-role-etcd
           vars:
             etcd_version: "{{ etcd_version }}"
-            etcd_node_name: "{{ k8s_node_name }}"
-            etcd_node_private_ip: "{{ k8s_node_private_ip }}"
+            etcd_node_name: "{{ node_name }}"
+            etcd_node_private_ip: "{{ node_private_ip }}"
             etcd_initial_cluster_member_names: "{{ master_node_names }}"
             etcd_initial_cluster_member_ips: "{{ master_node_ips }}"
             etcd_ca_cert: "{{ ca_crt_b64|b64decode }}"
             etcd_tls_cert: "{{ api_server_crt_b64|b64decode }}"
             etcd_tls_key: "{{ api_server_key_b64|b64decode }}"
+
+        - include_role:
+            name: ansible-role-k8s-control-plane
+          vars:
+            control_plane_node_name: "{{ node_name }}"
       # block type
       when:
-        - k8s_node_type|lower == 'master'
+        - node_type|lower == 'master'

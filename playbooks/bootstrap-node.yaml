@@ -31,20 +31,25 @@
   #     - include params
   #     - extra vars (always win precedence)
   vars:
-    k8s_node_type: ""
+    node_type: ""
+    node_name: ""
 
   pre_tasks:
     - name: "{{ ansible_play_name }} - check required inputs"
       fail:
-        msg: "[ERROR] - 'k8s_node_type' variable is not set"
+        msg: "[ERROR] - '{{ item }}' variable is not set"
       when:
-        - k8s_node_type|length == 0
+        - vars[item]|length == 0
+      loop:
+        - node_type
+        - node_name
 
   tasks:
     - include_role:
         name: ansible-role-k8s-prepare-env
       vars:
         k8s_node_type: "{{ node_type }}"
+        k8s_node_name: "{{ node_name }}"
 
     - include_role:
         name: ansible-role-openssh

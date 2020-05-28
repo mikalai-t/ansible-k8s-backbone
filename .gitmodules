@@ -10,3 +10,6 @@
 [submodule "roles/ansible-role-etcd"]
 	path = roles/ansible-role-etcd
 	url = https://github.com/mikalai-t/ansible-role-etcd.git
+[submodule "roles/ansible-role-k8s-control-plane"]
+	path = roles/ansible-role-k8s-control-plane
+	url = https://github.com/mikalai-t/ansible-role-k8s-control-plane.git
