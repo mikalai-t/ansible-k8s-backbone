@@ -99,6 +99,7 @@
           vars:
             control_plane_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
             control_plane_kubernetes_version: "{{ k8s_cluster_version }}"
+            control_plane_kubernetes_cluster_member_ips: "{{ master_node_ips }}"
             control_plane_node_name: "{{ node_name }}"
             control_plane_node_private_ip: "{{ node_private_ip }}"
             control_plane_ca_cert: "{{ ca_crt_b64|b64decode }}"
