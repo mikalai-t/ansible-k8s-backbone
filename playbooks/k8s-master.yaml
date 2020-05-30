@@ -59,8 +59,10 @@
       when:
         - vars[item]|length == 0
       loop:
-        - k8s_cluster_name
         - k8s_cluster_version
+        - k8s_cluster_name
+        - k8s_cluster_pod_cidr
+        - k8s_cluster_services_cidr
         - node_type
         - node_name
         - node_private_ip
@@ -97,9 +99,11 @@
         - include_role:
             name: ansible-role-k8s-control-plane
           vars:
-            control_plane_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
             control_plane_kubernetes_version: "{{ k8s_cluster_version }}"
-            control_plane_kubernetes_cluster_member_ips: "{{ master_node_ips }}"
+            control_plane_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
+            control_plane_kubernetes_cluster_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
+            control_plane_kubernetes_cluster_services_cidr: "{{ k8s_cluster_services_cidr }}"
+            control_plane_kubernetes_cluster_master_ips: "{{ master_node_ips }}"
             control_plane_node_name: "{{ node_name }}"
             control_plane_node_private_ip: "{{ node_private_ip }}"
             control_plane_ca_cert: "{{ ca_crt_b64|b64decode }}"
