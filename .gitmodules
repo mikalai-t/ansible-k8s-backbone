@@ -13,3 +13,6 @@
 [submodule "roles/ansible-role-k8s-control-plane"]
 	path = roles/ansible-role-k8s-control-plane
 	url = https://github.com/mikalai-t/ansible-role-k8s-control-plane.git
+[submodule "roles/ansible-role-nginx"]
+	path = roles/ansible-role-nginx
+	url = https://github.com/mikalai-t/ansible-role-nginx.git
