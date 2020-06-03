@@ -46,7 +46,7 @@
 
   tasks:
     - include_role:
-        name: ansible-role-k8s-prepare-env
+        name: ansible-role-prepare-k8s-node
       vars:
         k8s_node_type: "{{ node_type }}"
         k8s_node_name: "{{ node_name }}"
@@ -54,5 +54,6 @@
     - include_role:
         name: ansible-role-openssh
 
-    - include_role:
-        name: ansible-role-docker
+    # not required in 'Kubernetes - the hard way'
+    #- include_role:
+    #    name: ansible-role-docker
