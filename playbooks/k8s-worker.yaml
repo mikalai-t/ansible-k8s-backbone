@@ -1,0 +1,58 @@
+---
+- hosts: localhost
+
+  gather_facts: True
+
+  # Variables precedence (since Ansible version 2.x):
+  #     - role defaults [Tasks defined outside of a role will see the last role’s defaults.]
+  #     - inventory file or script group vars [Variables defined in inventory file or provided by dynamic inventory.]
+  #     - inventory group_vars/all
+  #     - playbook group_vars/all
+  #     - inventory group_vars/*
+  #     - playbook group_vars/*
+  #     - inventory file or script host vars [Variables defined in inventory file or provided by dynamic inventory.]
+  #     - inventory host_vars/*
+  # (*) - playbook host_vars/*
+  #     - host facts / cached set_facts [When created with set_facts’s cacheable option, variables will have the high
+  #                                      precedence in the play, but will be the same as a host facts precedence when
+  #                                      they come from the cache.]
+  #     - inventory host_vars/*
+  #     - playbook host_vars/*
+  #     - host facts
+  #     - play vars
+  #     - play vars_prompt
+  #     - play vars_files
+  #     - role vars (defined in role/vars/main.yml)
+  #     - block vars (only for tasks in block)
+  #     - task vars (only for the task)
+  #     - include_vars
+  #     - set_facts / registered vars
+  #     - role (and include_role) params
+  #     - include params
+  #     - extra vars (always win precedence)
+  vars:
+    node_type: ""
+    node_name: ""
+    k8s_cluster_pod_cidr: ""
+
+  pre_tasks:
+    - name: "{{ ansible_play_name }} - check required inputs"
+      fail:
+        msg: "[ERROR] - '{{ item }}' variable is not set"
+      when:
+        - vars[item]|length == 0
+      loop:
+        - node_type
+        - node_name
+        - k8s_cluster_pod_cidr
+
+  tasks:
+    - block:
+        - include_role:
+            name: ansible-role-cni-pluginx
+          vars:
+            cni_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
+
+      # block type
+      when:
+        - node_type|lower == 'worker'

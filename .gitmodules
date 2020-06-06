@@ -16,3 +16,6 @@
 [submodule "roles/ansible-role-prepare-k8s-node"]
 	path = roles/ansible-role-prepare-k8s-node
 	url = https://github.com/mikalai-t/ansible-role-prepare-k8s-node.git
+[submodule "roles/ansible-role-cni-plugins"]
+	path = roles/ansible-role-cni-plugins
+	url = https://github.com/mikalai-t/ansible-role-cni-plugins.git
