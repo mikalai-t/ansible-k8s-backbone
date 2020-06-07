@@ -19,3 +19,6 @@
 [submodule "roles/ansible-role-cni-plugins"]
 	path = roles/ansible-role-cni-plugins
 	url = https://github.com/mikalai-t/ansible-role-cni-plugins.git
+[submodule "roles/ansible-role-containerd"]
+	path = roles/ansible-role-containerd
+	url = https://github.com/mikalai-t/ansible-role-containerd.git

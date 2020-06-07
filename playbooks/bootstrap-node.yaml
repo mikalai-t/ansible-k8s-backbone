@@ -55,5 +55,5 @@
         name: ansible-role-openssh
 
     # not required in 'Kubernetes - the hard way'
-    - include_role:
-        name: ansible-role-docker
+    #- include_role:
+    #    name: ansible-role-docker
