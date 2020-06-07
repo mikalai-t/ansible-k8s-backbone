@@ -48,17 +48,26 @@
 
   tasks:
     - block:
-        - include_role:
-            name: ansible-role-cni-plugins
-          vars:
-            cni_plugins_version: "v0.8.6"
-            cni_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
+      - include_role:
+          name: ansible-role-prepare-k8s-node
+        vars:
+          k8s_node_type: "{{ node_type }}"
+          k8s_node_name: "{{ node_name }}"
 
-        - include_role:
-            name: ansible-role-containerd
-          vars:
-            containerd_version: "1.3.4"
-            containerd_runc_version: "v1.0.0-rc90"
+      - include_role:
+          name: ansible-role-openssh
+
+      - include_role:
+          name: ansible-role-cni-plugins
+        vars:
+          cni_plugins_version: "v0.8.6"
+          cni_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
+
+      - include_role:
+          name: ansible-role-containerd
+        vars:
+          containerd_version: "1.3.4"
+          containerd_runc_version: "v1.0.0-rc90"
 
       # block type
       when:
