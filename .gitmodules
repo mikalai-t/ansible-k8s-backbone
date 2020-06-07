@@ -22,3 +22,6 @@
 [submodule "roles/ansible-role-containerd"]
 	path = roles/ansible-role-containerd
 	url = https://github.com/mikalai-t/ansible-role-containerd.git
+[submodule "roles/ansible-role-k8s-worker"]
+	path = roles/ansible-role-k8s-worker
+	url = https://github.com/mikalai-t/ansible-role-k8s-worker.git
