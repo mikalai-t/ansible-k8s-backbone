@@ -49,7 +49,7 @@
   tasks:
     - block:
         - include_role:
-            name: ansible-role-cni-pluginx
+            name: ansible-role-cni-plugins
           vars:
             cni_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
 
