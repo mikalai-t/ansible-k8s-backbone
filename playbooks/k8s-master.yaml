@@ -16,9 +16,6 @@
   #     - host facts / cached set_facts [When created with set_facts’s cacheable option, variables will have the high
   #                                      precedence in the play, but will be the same as a host facts precedence when
   #                                      they come from the cache.]
-  #     - inventory host_vars/*
-  #     - playbook host_vars/*
-  #     - host facts
   #     - play vars
   #     - play vars_prompt
   #     - play vars_files
@@ -31,8 +28,10 @@
   #     - include params
   #     - extra vars (always win precedence)
   vars:
-    k8s_cluster_name: ""
     k8s_cluster_version: ""
+    k8s_cluster_name: ""
+    k8s_cluster_pod_cidr: ""
+    k8s_cluster_services_cidr: ""
     node_type: ""
     node_name: ""
     node_private_ip: ""

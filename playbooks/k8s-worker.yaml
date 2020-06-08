@@ -31,9 +31,19 @@
   #     - include params
   #     - extra vars (always win precedence)
   vars:
+    k8s_cluster_version: ""
+    k8s_cluster_name: ""
+    k8s_cluster_pod_cidr: ""
+    k8s_cluster_services_cidr: ""
+    k8s_cluster_external_endpoint: ""
     node_type: ""
     node_name: ""
-    k8s_cluster_pod_cidr: ""
+    node_private_ip: ""
+    ca_crt_b64: ""
+    kubelet_crt_b64: ""
+    kubelet_key_b64: ""
+    kube_proxy_crt_b64: ""
+    kube_proxy_key_b64: ""
 
   pre_tasks:
     - name: "{{ ansible_play_name }} - check required inputs"
@@ -42,9 +52,18 @@
       when:
         - vars[item]|length == 0
       loop:
+        - k8s_cluster_version
+        - k8s_cluster_name
+        - k8s_cluster_pod_cidr
+        - k8s_cluster_services_cidr
         - node_type
         - node_name
-        - k8s_cluster_pod_cidr
+        - node_private_ip
+        - ca_crt_b64
+        - kubelet_crt_b64
+        - kubelet_key_b64
+        - kube_proxy_crt_b64
+        - kube_proxy_key_b64
 
   tasks:
     - block:
@@ -68,6 +87,23 @@
         vars:
           containerd_version: "1.3.4"
           containerd_runc_version: "v1.0.0-rc90"
+
+      - include_role:
+          name: ansible-role-k8s-worker
+        vars:
+          k8s_worker_kubernetes_version: "{{ k8s_cluster_version }}"
+          k8s_worker_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
+          k8s_worker_kubernetes_cluster_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
+          k8s_worker_kubernetes_cluster_services_cidr: "{{ k8s_cluster_services_cidr }}"
+          k8s_cluster_external_endpoint: "{{ k8s_cluster_external_endpoint }}"
+          k8s_worker_node_name: "{{ node_name }}"
+          k8s_worker_node_private_ip: "{{ node_private_ip }}"
+          k8s_worker_api_external_endpoint:
+          k8s_worker_ca_cert: "{{ ca_crt_b64|b64decode }}"
+          k8s_worker_kubelet_cert: "{{ kubelet_crt_b64|b64decode }}"
+          k8s_worker_kubelet_key: "{{ kubelet_key_b64|b64decode }}"
+          k8s_worker_kube_proxy_cert: "{{ kube_proxy_crt_b64|b64decode }}"
+          k8s_worker_kube_proxy_key: "{{ kube_proxy_key_b64|b64decode }}"
 
       # block type
       when:
