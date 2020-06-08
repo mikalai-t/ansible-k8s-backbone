@@ -95,10 +95,9 @@
           k8s_worker_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
           k8s_worker_kubernetes_cluster_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
           k8s_worker_kubernetes_cluster_services_cidr: "{{ k8s_cluster_services_cidr }}"
-          k8s_cluster_external_endpoint: "{{ k8s_cluster_external_endpoint }}"
           k8s_worker_node_name: "{{ node_name }}"
           k8s_worker_node_private_ip: "{{ node_private_ip }}"
-          k8s_worker_api_external_endpoint:
+          k8s_worker_api_external_endpoint: "{{ k8s_cluster_external_endpoint }}"
           k8s_worker_ca_cert: "{{ ca_crt_b64|b64decode }}"
           k8s_worker_kubelet_cert: "{{ kubelet_crt_b64|b64decode }}"
           k8s_worker_kubelet_key: "{{ kubelet_key_b64|b64decode }}"
