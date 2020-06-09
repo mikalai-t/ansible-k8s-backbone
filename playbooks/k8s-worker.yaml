@@ -33,11 +33,12 @@
   vars:
     k8s_cluster_version: ""
     k8s_cluster_name: ""
-    k8s_cluster_pod_cidr: ""
+    k8s_cluster_cidr: ""
     k8s_cluster_services_cidr: ""
     k8s_cluster_external_endpoint: ""
     node_type: ""
     node_name: ""
+    node_pod_cidr: ""
     node_private_ip: ""
     ca_crt_b64: ""
     kubelet_crt_b64: ""
@@ -54,10 +55,11 @@
       loop:
         - k8s_cluster_version
         - k8s_cluster_name
-        - k8s_cluster_pod_cidr
+        - k8s_cluster_cidr
         - k8s_cluster_services_cidr
         - node_type
         - node_name
+        - node_pod_cidr
         - node_private_ip
         - ca_crt_b64
         - kubelet_crt_b64
@@ -80,7 +82,7 @@
           name: ansible-role-cni-plugins
         vars:
           cni_plugins_version: "v0.8.6"
-          cni_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
+          cni_pod_cidr: "{{ node_pod_cidr }}"
 
       - include_role:
           name: ansible-role-containerd
@@ -93,9 +95,10 @@
         vars:
           k8s_worker_kubernetes_version: "{{ k8s_cluster_version }}"
           k8s_worker_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
-          k8s_worker_kubernetes_cluster_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
+          k8s_worker_kubernetes_cluster_cidr: "{{ k8s_cluster_cidr }}"
           k8s_worker_kubernetes_cluster_services_cidr: "{{ k8s_cluster_services_cidr }}"
           k8s_worker_node_name: "{{ node_name }}"
+          k8s_worker_node_pod_cidr: "{{ node_pod_cidr }}"
           k8s_worker_node_private_ip: "{{ node_private_ip }}"
           k8s_worker_api_external_endpoint: "{{ k8s_cluster_external_endpoint }}"
           k8s_worker_ca_cert: "{{ ca_crt_b64|b64decode }}"
