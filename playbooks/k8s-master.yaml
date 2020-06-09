@@ -30,7 +30,7 @@
   vars:
     k8s_cluster_version: ""
     k8s_cluster_name: ""
-    k8s_cluster_pod_cidr: ""
+    k8s_cluster_cidr: ""
     k8s_cluster_services_cidr: ""
     node_type: ""
     node_name: ""
@@ -60,7 +60,7 @@
       loop:
         - k8s_cluster_version
         - k8s_cluster_name
-        - k8s_cluster_pod_cidr
+        - k8s_cluster_cidr
         - k8s_cluster_services_cidr
         - node_type
         - node_name
@@ -109,7 +109,7 @@
         vars:
           control_plane_kubernetes_version: "{{ k8s_cluster_version }}"
           control_plane_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
-          control_plane_kubernetes_cluster_pod_cidr: "{{ k8s_cluster_pod_cidr }}"
+          control_plane_kubernetes_cluster_cidr: "{{ k8s_cluster_cidr }}"
           control_plane_kubernetes_cluster_services_cidr: "{{ k8s_cluster_services_cidr }}"
           control_plane_kubernetes_cluster_master_ips: "{{ master_node_ips }}"
           control_plane_node_name: "{{ node_name }}"
