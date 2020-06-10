@@ -39,8 +39,8 @@
     master_node_ips: ""
     ca_crt_b64: ""
     ca_key_b64: ""
-    api_server_crt_b64: ""
-    api_server_key_b64: ""
+    kube_apiserver_crt_b64: ""
+    kube_apiserver_key_b64: ""
     service_account_crt_b64: ""
     service_account_key_b64: ""
     admin_user_crt_b64: ""
@@ -69,14 +69,14 @@
         - master_node_ips
         - ca_crt_b64
         - ca_key_b64
-        - api_server_crt_b64
-        - api_server_key_b64
-        - service_account_crt_b64
-        - service_account_key_b64
+        - kube_apiserver_crt_b64
+        - kube_apiserver_key_b64
         - admin_user_crt_b64
         - admin_user_key_b64
         - kube_controller_manager_crt_b64
         - kube_controller_manager_key_b64
+        - service_account_crt_b64
+        - service_account_key_b64
         - kube_scheduler_crt_b64
         - kube_scheduler_key_b64
         - etcd_version
@@ -101,8 +101,8 @@
           etcd_initial_cluster_member_names: "{{ master_node_names }}"
           etcd_initial_cluster_member_ips: "{{ master_node_ips }}"
           etcd_ca_cert: "{{ ca_crt_b64|b64decode }}"
-          etcd_tls_cert: "{{ api_server_crt_b64|b64decode }}"
-          etcd_tls_key: "{{ api_server_key_b64|b64decode }}"
+          etcd_tls_cert: "{{ kube_apiserver_crt_b64|b64decode }}"
+          etcd_tls_key: "{{ kube_apiserver_key_b64|b64decode }}"
 
       - include_role:
           name: ansible-role-k8s-control-plane
@@ -116,14 +116,14 @@
           control_plane_node_private_ip: "{{ node_private_ip }}"
           control_plane_ca_cert: "{{ ca_crt_b64|b64decode }}"
           control_plane_ca_key: "{{ ca_key_b64|b64decode }}"
-          control_plane_api_server_cert: "{{ api_server_crt_b64|b64decode }}"
-          control_plane_api_server_key: "{{ api_server_key_b64|b64decode }}"
-          control_plane_service_account_cert: "{{ service_account_crt_b64|b64decode }}"
-          control_plane_service_account_key: "{{ service_account_key_b64|b64decode }}"
+          control_plane_kube_apiserver_cert: "{{ kube_apiserver_crt_b64|b64decode }}"
+          control_plane_kube_apiserver_key: "{{ kube_apiserver_key_b64|b64decode }}"
           control_plane_admin_user_cert: "{{ admin_user_crt_b64|b64decode }}"
           control_plane_admin_user_key: "{{ admin_user_key_b64|b64decode }}"
           control_plane_kube_controller_manager_cert: "{{ kube_controller_manager_crt_b64|b64decode }}"
           control_plane_kube_controller_manager_key: "{{ kube_controller_manager_key_b64|b64decode }}"
+          control_plane_service_account_cert: "{{ service_account_crt_b64|b64decode }}"
+          control_plane_service_account_key: "{{ service_account_key_b64|b64decode }}"
           control_plane_kube_scheduler_cert: "{{ kube_scheduler_crt_b64|b64decode }}"
           control_plane_kube_scheduler_key: "{{ kube_scheduler_key_b64|b64decode }}"
 
