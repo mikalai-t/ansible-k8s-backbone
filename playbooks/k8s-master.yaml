@@ -108,7 +108,7 @@
           name: ansible-role-k8s-control-plane
         vars:
           control_plane_kubernetes_version: "{{ k8s_cluster_version }}"
-          control_plane_coredns_version: "1.6.9"
+          control_plane_coredns_version: "1.6.7"
           control_plane_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
           control_plane_kubernetes_cluster_cidr: "{{ k8s_cluster_cidr }}"
           control_plane_kubernetes_cluster_services_cidr: "{{ k8s_cluster_services_cidr }}"
