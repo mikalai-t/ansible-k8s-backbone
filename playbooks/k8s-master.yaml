@@ -41,7 +41,7 @@
     ca_key_b64: ""
     kube_apiserver_crt_b64: ""
     kube_apiserver_key_b64: ""
-    service_account_crt_b64: ""
+    service_account_pub_b64: ""
     service_account_key_b64: ""
     admin_user_crt_b64: ""
     admin_user_key_b64: ""
@@ -75,7 +75,7 @@
         - admin_user_key_b64
         - kube_controller_manager_crt_b64
         - kube_controller_manager_key_b64
-        - service_account_crt_b64
+        - service_account_pub_b64
         - service_account_key_b64
         - kube_scheduler_crt_b64
         - kube_scheduler_key_b64
@@ -123,7 +123,7 @@
           control_plane_admin_user_key: "{{ admin_user_key_b64|b64decode }}"
           control_plane_kube_controller_manager_cert: "{{ kube_controller_manager_crt_b64|b64decode }}"
           control_plane_kube_controller_manager_key: "{{ kube_controller_manager_key_b64|b64decode }}"
-          control_plane_service_account_cert: "{{ service_account_crt_b64|b64decode }}"
+          control_plane_service_account_pub: "{{ service_account_pub_b64|b64decode }}"
           control_plane_service_account_key: "{{ service_account_key_b64|b64decode }}"
           control_plane_kube_scheduler_cert: "{{ kube_scheduler_crt_b64|b64decode }}"
           control_plane_kube_scheduler_key: "{{ kube_scheduler_key_b64|b64decode }}"
