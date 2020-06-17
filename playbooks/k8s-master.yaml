@@ -188,7 +188,7 @@
           nginx_version: "1.18.0"
           nginx_certificates:
             - name: ca.crt
-              content: "{{ ca_crt_b64|b64decode }}"
+              content: "{{ kubernetes_ca_crt_b64|b64decode }}"
           nginx_vhosts:
             - name: default
               vhost_config: |
