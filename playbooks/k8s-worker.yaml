@@ -40,9 +40,15 @@
     node_name: ""
     node_pod_cidr: ""
     node_private_ip: ""
-    ca_crt_b64: ""
+    #########
+    ## PKI ##
+    #########
+    # kubernetes-ca
+    kubernetes_ca_crt_b64: ""
+    # kubelet
     kubelet_crt_b64: ""
     kubelet_key_b64: ""
+    # kube-proxy
     kube_proxy_crt_b64: ""
     kube_proxy_key_b64: ""
 
@@ -61,9 +67,15 @@
         - node_name
         - node_pod_cidr
         - node_private_ip
-        - ca_crt_b64
+          #########
+          ## PKI ##
+          #########
+          # kubernetes-ca
+        - kubernetes_ca_crt_b64
+          # kubelet
         - kubelet_crt_b64
         - kubelet_key_b64
+          # kube-proxy
         - kube_proxy_crt_b64
         - kube_proxy_key_b64
 
@@ -101,9 +113,15 @@
           k8s_worker_node_pod_cidr: "{{ node_pod_cidr }}"
           k8s_worker_node_private_ip: "{{ node_private_ip }}"
           k8s_worker_api_external_endpoint: "{{ k8s_cluster_external_endpoint }}"
-          k8s_worker_ca_cert: "{{ ca_crt_b64|b64decode }}"
+          #########
+          ## PKI ##
+          #########
+          # kubernetes-ca
+          k8s_worker_kubernetes_ca_cert: "{{ kubernetes_ca_crt_b64|b64decode }}"
+          # kubelet
           k8s_worker_kubelet_cert: "{{ kubelet_crt_b64|b64decode }}"
           k8s_worker_kubelet_key: "{{ kubelet_key_b64|b64decode }}"
+          # kube-proxy
           k8s_worker_kube_proxy_cert: "{{ kube_proxy_crt_b64|b64decode }}"
           k8s_worker_kube_proxy_key: "{{ kube_proxy_key_b64|b64decode }}"
 
