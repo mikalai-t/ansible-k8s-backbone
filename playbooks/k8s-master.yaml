@@ -32,6 +32,7 @@
     k8s_cluster_name: ""
     k8s_cluster_cidr: ""
     k8s_cluster_services_cidr: ""
+    k8s_cluster_service_node_port_range: ""
     node_type: ""
     node_name: ""
     node_private_ip: ""
@@ -79,6 +80,7 @@
         - k8s_cluster_name
         - k8s_cluster_cidr
         - k8s_cluster_services_cidr
+        - k8s_cluster_service_node_port_range
         - node_type
         - node_name
         - node_private_ip
@@ -148,6 +150,7 @@
           control_plane_kubernetes_cluster_name: "{{ k8s_cluster_name }}"
           control_plane_kubernetes_cluster_cidr: "{{ k8s_cluster_cidr }}"
           control_plane_kubernetes_cluster_services_cidr: "{{ k8s_cluster_services_cidr }}"
+          control_plane_k8s_cluster_service_node_port_range: "{{ k8s_cluster_service_node_port_range }}"
           control_plane_kubernetes_cluster_master_ips: "{{ master_node_ips }}"
           control_plane_node_name: "{{ node_name }}"
           control_plane_node_private_ip: "{{ node_private_ip }}"
