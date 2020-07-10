@@ -103,16 +103,22 @@
         - kubernetes_ca_key_b64
         - service_account_pub_b64
         - service_account_key_b64
+          # kube-apiserver
         - kube_apiserver_crt_b64
         - kube_apiserver_key_b64
         - kube_apiserver_kubelet_client_crt_b64
         - kube_apiserver_kubelet_client_key_b64
         - admin_user_crt_b64
         - admin_user_key_b64
+          # kube-controller-manager
         - kube_controller_manager_crt_b64
         - kube_controller_manager_key_b64
+          # kube-scheduler
         - kube_scheduler_crt_b64
         - kube_scheduler_key_b64
+          # kube-proxy
+        - kube_proxy_crt_b64
+        - kube_proxy_key_b64
           # front-proxy
         - front_proxy_ca_crt_b64
         - front_proxy_client_crt_b64
@@ -180,6 +186,9 @@
           # kube-scheduler
           control_plane_kube_scheduler_cert: "{{ kube_scheduler_crt_b64|b64decode }}"
           control_plane_kube_scheduler_key: "{{ kube_scheduler_key_b64|b64decode }}"
+          # kube-proxy
+          controle_plane_kube_proxy_cert: "{{ kube_proxy_crt_b64|b64decode }}"
+          controle_plane_kube_proxy_key: "{{ kube_proxy_key_b64|b64decode }}"
           # front-proxy
           control_plane_front_proxy_ca_cert: "{{ front_proxy_ca_crt_b64|b64decode }}"
           control_plane_front_proxy_client_cert: "{{ front_proxy_client_crt_b64|b64decode }}"
